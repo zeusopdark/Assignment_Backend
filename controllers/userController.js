@@ -49,3 +49,6 @@ export const logoutFunc = async (req, res, next) => {
     res.status(200).json({ message: "Logout successful" });
 
 }
+export const getCookie = (req, res) => {
+    res.send(req.cookies);
+}
