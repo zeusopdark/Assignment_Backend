@@ -33,24 +33,9 @@ export const userLogin = async (req, res, next) => {
 
         const { password: pass, ...rest } = validUser._doc;
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
-        res.cookie('token', token, {
-            httpOnly: true, //accessible only by web server 
-            secure: true,
-            sameSite: 'None', //cross-site cookie 
-            maxAge: 7 * 24 * 60 * 60 * 1000,//cookie expiry: set to match rT
-            domain: "https://assignment-frontend-8373.onrender.com",
-        })
-        res.status(200).json({ rest });
+        res.status(200).json({ rest, token });
     } catch (err) {
         next(err);
     }
 }
-export const logoutFunc = async (req, res, next) => {
 
-    res.clearCookie("token");
-    res.status(200).json({ message: "Logout successful" });
-
-}
-export const getCookie = (req, res) => {
-    res.send(req.cookies);
-}

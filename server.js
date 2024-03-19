@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser"
 import User from "./models/user.model.js";
 const app = express();
 const corsOptions = {
-    origin: "https://assignment-frontend-8373.onrender.com",
+    origin: "http://localhost:3000",
     credentials: true,
 }
 app.use(cors(corsOptions));
@@ -21,7 +21,7 @@ app.use("/api/user", userRouter);
 
 //to get all the attendence record
 app.get('/attendance', verifyToken, async (req, res, next) => {
-    console.log(req.cookies)
+
     try {
         const attendanceRecords = await Attendance.find().populate('personId', 'name');
         const formattedAttendanceRecords = attendanceRecords.map(record => ({
@@ -29,7 +29,6 @@ app.get('/attendance', verifyToken, async (req, res, next) => {
             personId: record.personId._id,
             name: record.personId.name
         }));
-        console.log(formattedAttendanceRecords);
         res.status(200).json(formattedAttendanceRecords);
     } catch (error) {
         next(error);
