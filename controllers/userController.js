@@ -21,7 +21,7 @@ export const userRegister = async (req, res, next) => {
 }
 
 export const userLogin = async (req, res, next) => {
-    console.log("There we go")
+
     const { email, password } = req.body;
 
     try {
@@ -34,8 +34,6 @@ export const userLogin = async (req, res, next) => {
         const { password: pass, ...rest } = validUser._doc;
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
         res.cookie('token', token, {
-            httpOnly: true, //accessible only by web server 
-            secure: true, //https
             sameSite: 'None', //cross-site cookie 
             maxAge: 7 * 24 * 60 * 60 * 1000,//cookie expiry: set to match rT
             domain: "https://assignment-frontend-8373.onrender.com",
