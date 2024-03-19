@@ -10,20 +10,19 @@ import cookieParser from "cookie-parser"
 import User from "./models/user.model.js";
 const app = express();
 const corsOptions = {
-    origin: "https://assignment-frontend-8373.onrender.com",
+    origin: ["https://assignment-frontend-8373.onrender.com", "http://localhost:3000"],
     credentials: true,
 }
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use("/api/user", userRouter);
 
 //to get all the attendence record
 app.get('/attendance', verifyToken, async (req, res, next) => {
     try {
         const attendanceRecords = await Attendance.find().populate('personId', 'name');
-        console.log(attendanceRecords);
         const formattedAttendanceRecords = attendanceRecords.map(record => ({
             date: record.date,
             personId: record.personId._id,

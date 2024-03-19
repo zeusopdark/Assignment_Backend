@@ -33,8 +33,15 @@ export const userLogin = async (req, res, next) => {
 
         const { password: pass, ...rest } = validUser._doc;
         const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
-        res.status(200).json({ rest, token });
+        res.cookie("token", token);
+        res.status(200).json({ rest });
     } catch (err) {
         next(err);
     }
+}
+export const logoutFunc = async (req, res, next) => {
+
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logout successful" });
+
 }
