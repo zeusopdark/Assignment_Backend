@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser"
 import User from "./models/user.model.js";
 const app = express();
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://assignment-frontend-8373.onrender.com",
     credentials: true,
 }
 app.use(cors(corsOptions));
