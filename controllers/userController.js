@@ -37,7 +37,8 @@ export const userLogin = async (req, res, next) => {
             httpOnly: true, //accessible only by web server 
             secure: true, //https
             sameSite: 'None', //cross-site cookie 
-            maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expiry: set to match rT
+            maxAge: 7 * 24 * 60 * 60 * 1000,//cookie expiry: set to match rT
+            domain: "https://assignment-frontend-8373.onrender.com",
         })
         res.status(200).json({ rest });
     } catch (err) {
