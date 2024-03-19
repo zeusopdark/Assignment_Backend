@@ -21,6 +21,7 @@ app.use("/api/user", userRouter);
 
 //to get all the attendence record
 app.get('/attendance', verifyToken, async (req, res, next) => {
+    console.log(req.cookies)
     try {
         const attendanceRecords = await Attendance.find().populate('personId', 'name');
         const formattedAttendanceRecords = attendanceRecords.map(record => ({
